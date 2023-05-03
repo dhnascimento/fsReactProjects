@@ -11,3 +11,5 @@ const config = {
       (process.env.MONGO_PORT || "27017") +
       "/mernproject",
 };
+
+export default config;

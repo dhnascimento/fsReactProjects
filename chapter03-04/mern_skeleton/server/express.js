@@ -4,8 +4,13 @@ import cookieParser from "cookie-parser";
 import compress from 'compression';
 import cors from 'cors';
 import helmet from "helmet";
+import Template from "../template";
 
 const app = express();
+
+app.get('/', (req, res) => {
+    res.status(200).send(Template())
+});
 
 app.use(bodyParser.json);
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -4,8 +4,9 @@ import mongoose from 'mongoose';
 
 
 mongoose.Promise = global.Promise;
-mongoose.connect(config.mongoUri, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
-mongoose.connection.on('error', () => {
+mongoose.connect(config.mongoUri, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connection.on('error', (e) => {
+    console.log(e);
     throw new Error(`unable to connect to database: ${config.mongoUri}`)
 });
 

@@ -10,10 +10,6 @@ import authRoutes from './routes/auth.routes';
 
 const app = express();
 
-
-
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser());

@@ -1,4 +1,5 @@
 import express from 'express';
+import authCtrl from '../controlers/auth.controller';
 import userCtrl from '../controlers/user.controller';
 
 const router = express.Router();
@@ -8,10 +9,10 @@ router.route('/api/users')
     .post(userCtrl.create);
 
 router.route('/api/users/:userId')
-    .get(userCtrl.read)
-    .put(userCtrl.update)
-    .delete(userCtrl.remove);
+    .get(authCtrl.requireSignin, userCtrl.read)
+    .put(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.update)
+    .delete(authCtrl.requireSignin, authCtrl.hasAuthorization, userCtrl.remove);
 
-router.param('userId', userCtrl.userByID);
+router.param('userId', userCtrl.userById);
 
 export default router;

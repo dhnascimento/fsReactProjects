@@ -4,11 +4,15 @@ import cookieParser from "cookie-parser";
 import compress from 'compression';
 import cors from 'cors';
 import helmet from "helmet";
+import path from 'path';
 import Template from "../template";
+import devBundle from "./devBundle"; //comment out for production
 import userRoutes from './routes/user.routes';
 import authRoutes from './routes/auth.routes';
 
 const app = express();
+const CURRENT_WORKING_DIR = process.cwd();
+devBundle.compile(app); //comment out for production
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -18,6 +22,7 @@ app.use(helmet());
 app.use(cors());
 app.use('/', userRoutes);
 app.use('/', authRoutes);
+app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')));
 
 app.use((err, req, res, next) => {
     if (err.name === 'UnauthorizedError') {
